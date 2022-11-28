@@ -11,10 +11,12 @@ public class Main {
      */
     public static void main(String[] arg) {
         BellmanFordSolver bfs = new OutSequential();
-        int n = 10;
+        int n = 4;
         int[][] g = GraphUtil.generate(n, 0.3, 0.4, 8, 16, -8, 0, 332);
         GraphUtil.printAdjMatrix(g);
-        System.out.println(bfs.solve(g, 0));
+
+        Parser.parse(g);
+        //System.out.println(bfs.solve(g, 0));
     }
 
 }

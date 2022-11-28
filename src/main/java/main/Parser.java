@@ -10,7 +10,7 @@ public class Parser {
      * @return Adjacency list
      */
     public static Object parse(int[][] adjMatrix) {
-        throw new NotYetImplementedException();
+        return new Graph(adjMatrix);
     }
 
     /**

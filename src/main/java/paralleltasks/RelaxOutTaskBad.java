@@ -4,6 +4,7 @@ import cse332.exceptions.NotYetImplementedException;
 
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
+import solvers.OutSequential;
 
 public class RelaxOutTaskBad extends RecursiveAction {
 
