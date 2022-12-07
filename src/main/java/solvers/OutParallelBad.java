@@ -12,14 +12,11 @@ import paralleltasks.*;
 public class OutParallelBad implements BellmanFordSolver {
 
     public List<Integer> solve(int[][] adjMatrix, int source) {
-        Object g = Parser.parse(adjMatrix);
-
-        Graph graph = (Graph) g;
-
-        List<Graph.Edge>[] adjList = graph.getAdjList();
+        List<Graph.Edge>[] adjList = Parser.parse(adjMatrix);
         int V = adjList.length;
 
         int[] D = new int[V];
+        int[] copiedD;
         int[] P = new int[V];
 
         for (int i = 0; i < V; i++) {
@@ -27,10 +24,15 @@ public class OutParallelBad implements BellmanFordSolver {
             P[i] = -1;
         }
         D[source] = 0;
-        int[] copiedD = ArrayCopyTask.copy(D);
 
-
-
+        for (int i = 0; i < V; i++) {
+            //parallel array copying
+            copiedD = ArrayCopyTask.copy(D);
+            //List<Graph.Edge> l = adjList[j];
+            //relaxing the edges
+            RelaxOutTaskBad.parallel(D, copiedD, P, adjList);
+        }
+        return GraphUtil.getCycle(P);
     }
 
 }

@@ -12,11 +12,7 @@ import java.util.List;
 public class OutSequential implements BellmanFordSolver {
 
     public List<Integer> solve(int[][] adjMatrix, int source) {
-        Object g = Parser.parse(adjMatrix);
-
-        Graph graph = (Graph) g;
-
-        List<Graph.Edge>[] adjList = graph.getAdjList();
+        List<Graph.Edge>[] adjList = Parser.parse(adjMatrix);
         int V = adjList.length;
 
         int[] D = new int[V];
@@ -29,13 +25,16 @@ public class OutSequential implements BellmanFordSolver {
         }
         D[source] = 0;
 
-        for (int i = 0; i < V; i++) {
-            copiedD[i] = D[i];
-        }
-
         for (int i = 0; i < V - 1; i++) {
             for (int j = 0; j < V; j++) {
+                //manual array copying
+                for (int w = 0; w < V; w++) {
+                    copiedD[w] = D[w];
+                }
+
                 List<Graph.Edge> l = adjList[j];
+
+                //relaxing the edges
                 for (Graph.Edge e: l) {
                     int u = e.getSource();
                     int v = e.getDest();

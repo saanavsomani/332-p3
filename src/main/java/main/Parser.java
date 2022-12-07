@@ -1,6 +1,7 @@
 package main;
 
 import cse332.exceptions.NotYetImplementedException;
+import java.util.List;
 
 public class Parser {
 
@@ -9,8 +10,9 @@ public class Parser {
      * @param adjMatrix Adjacency matrix
      * @return Adjacency list
      */
-    public static Object parse(int[][] adjMatrix) {
-        return new Graph(adjMatrix);
+    public static List<Graph.Edge>[] parse(int[][] adjMatrix) {
+        Graph g = new Graph(adjMatrix);
+        return g.getAdjList();
     }
 
     /**
@@ -18,8 +20,8 @@ public class Parser {
      * @param adjMatrix Adjacency matrix
      * @return Adjacency list with incoming edges
      */
-    public static Object parseInverse(int[][] adjMatrix) {
-        throw new NotYetImplementedException();
+    public static List<Graph.Edge>[] parseInverse(int[][] adjMatrix) {
+        Graph g = new Graph(adjMatrix);
+        return g.getInvAdjList();
     }
-
 }

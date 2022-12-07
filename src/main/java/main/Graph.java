@@ -7,7 +7,8 @@ import cse332.graph.GraphUtil;
  * This is an optional class in case you want to implement adjacency list with graph
  */
 public class Graph {
-    public List<Edge>[] adjList;
+    private List<Edge>[] adjList;
+    private List<Edge>[] invAdjList;
 
     public class Edge {
         private int weight;
@@ -37,13 +38,28 @@ public class Graph {
                     edges.add(new Edge(weight,i,j));
                 }
             }
-            adjList[i] = edges;
+            this.adjList[i] = edges;
+        }
+
+        this.invAdjList = (ArrayList<Edge>[]) new ArrayList[adjMatrix.length];
+        for (int i = 0; i < adjMatrix[0].length; i++) {
+            List<Edge> edges = new ArrayList<>();
+
+            for (int j = 0; j < adjMatrix.length; j++) {
+                int weight = adjMatrix[j][i];
+                if (weight != GraphUtil.INF) {
+                    edges.add(new Edge(weight,j,i));
+                }
+            }
+            invAdjList[i] = edges;
         }
     }
 
     public List<Edge>[] getAdjList() {
         return this.adjList;
     }
+
+    public List<Edge>[] getInvAdjList() { return this.invAdjList; }
 
     public void printAdjList() {
         for (List<Edge> edges: this.adjList) {

@@ -28,12 +28,12 @@ public class ArrayCopyTask extends RecursiveAction {
 
     @SuppressWarnings("ManualArrayCopy")
     protected void compute() {
-        if (hi - lo < CUTOFF) {
+        if (hi - lo <= CUTOFF) {
             for (int i = lo; i < hi; i++) {
                 dst[i] = src[i];
             }
         } else {
-            int mid = (lo + hi) / 2;
+            int mid = lo + (hi- lo) / 2;
             ArrayCopyTask left = new ArrayCopyTask(src, dst, lo, mid);
             ArrayCopyTask right = new ArrayCopyTask(src, dst, mid, hi);
             left.fork();
